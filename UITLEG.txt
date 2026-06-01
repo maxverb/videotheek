@@ -1,0 +1,66 @@
+============================================================
+ DE VIDEOTHEEK - SNELSTART
+============================================================
+
+Een lokale app om je Nederlandse tv-series te catalogiseren.
+Draait op je eigen computer. Geen internet, geen account.
+
+
+------------------------------------------------------------
+ BELANGRIJK: JE BACK-UP
+------------------------------------------------------------
+
+Je hele verzameling staat in EEN bestand:
+
+    data/videotheek.db
+
+Kopieer dit bestand af en toe naar een USB-stick of externe
+schijf. Verlies je dit bestand, dan ben je alles kwijt.
+Sluit de app voordat je kopieert.
+
+
+------------------------------------------------------------
+ EENMALIG INSTELLEN
+------------------------------------------------------------
+
+1. Installeer Node.js (LTS-versie, 20 of nieuwer):
+       https://nodejs.org/   (klik op de LTS-knop)
+
+2. Open een terminal in deze map:
+       Windows : Shift + rechtermuisklik in de map ->
+                 "PowerShell-venster hier openen"
+       Mac     : rechtermuisklik op de map ->
+                 "Nieuwe Terminal bij map"
+
+3. Typ achter elkaar (Enter na elke regel):
+
+       npm install
+       npm run db:init
+       npm run db:seed      (optioneel: voorbeeldseries)
+
+
+------------------------------------------------------------
+ STARTEN (elke keer)
+------------------------------------------------------------
+
+1. Open een terminal in deze map (zie hierboven).
+
+2. Typ:
+
+       npm run dev
+
+3. Open je browser en ga naar:
+
+       http://localhost:3000
+
+4. Stoppen: klik in de terminal en druk Ctrl + C.
+
+
+------------------------------------------------------------
+ MEER UITLEG
+------------------------------------------------------------
+
+Zie README.md voor uitgebreide uitleg, aparte stappen voor
+Windows en Mac, en het oplossen van problemen.
+
+============================================================
