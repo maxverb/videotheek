@@ -71,11 +71,11 @@ export default async function AfleveringDetail({ params }: { params: Promise<{ i
       <section className="space-y-3">
         <h2 className="text-xl">Media</h2>
         <MediaLijst media={media} />
-        {media.map((m) => (
-          <div key={m.id} className="text-right">
-            <DeleteButton action={verwijderMedia} velden={{ id: m.id, terug }} label={`✕ ${m.label || m.bestandspad}`} klein bevestiging="Media verwijderen?" />
-          </div>
-        ))}
+        <div className="flex flex-wrap gap-1">
+          {media.map((m) => (
+            <DeleteButton key={m.id} action={verwijderMedia} velden={{ id: m.id, terug }} label={m.label || m.bestandspad} variant="subtle" bevestiging="Media verwijderen?" />
+          ))}
+        </div>
         <MediaForm niveau="aflevering" niveauId={aflId} />
       </section>
 
@@ -84,22 +84,22 @@ export default async function AfleveringDetail({ params }: { params: Promise<{ i
         <section className="space-y-3">
           <h2 className="text-xl">Gastcast (afleveringsniveau)</h2>
           <CastGroepen cast={cast} />
-          {cast.map((c) => (
-            <div key={c.id} className="text-right">
-              <DeleteButton action={verwijderCast} velden={{ id: c.id, terug }} label={`✕ ${c.persoon_naam}`} klein bevestiging={`"${c.persoon_naam}" verwijderen?`} />
-            </div>
-          ))}
+          <div className="flex flex-wrap gap-1">
+            {cast.map((c) => (
+              <DeleteButton key={c.id} action={verwijderCast} velden={{ id: c.id, terug }} label={c.persoon_naam} variant="subtle" bevestiging={`"${c.persoon_naam}" verwijderen?`} />
+            ))}
+          </div>
           <CastForm personen={personen} niveau="aflevering" niveauId={aflId} />
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl">Schrijver(s) / regisseur (afleveringsniveau)</h2>
           <CrewLijst crew={crew} />
-          {crew.map((c) => (
-            <div key={c.id} className="text-right">
-              <DeleteButton action={verwijderCrew} velden={{ id: c.id, terug }} label={`✕ ${c.persoon_naam} (${c.rol})`} klein bevestiging={`"${c.persoon_naam}" verwijderen?`} />
-            </div>
-          ))}
+          <div className="flex flex-wrap gap-1">
+            {crew.map((c) => (
+              <DeleteButton key={c.id} action={verwijderCrew} velden={{ id: c.id, terug }} label={`${c.persoon_naam} (${c.rol})`} variant="subtle" bevestiging={`"${c.persoon_naam}" verwijderen?`} />
+            ))}
+          </div>
           <CrewForm personen={personen} niveau="aflevering" niveauId={aflId} />
         </section>
       </div>

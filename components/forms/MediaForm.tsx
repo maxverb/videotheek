@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { maakMedia, maakAfbeelding, type FormState } from "@/lib/actions";
 import { MEDIA_TYPES } from "@/lib/types";
 import { Veld, Tekst, Keuze, SubmitKnop, FormFout } from "@/components/fields";
+import { IconPlus, IconMinus, IconSettings } from "@/components/icons";
 
 type Niveau = "serie" | "seizoen" | "aflevering";
 
@@ -12,7 +13,7 @@ function Blok({ titel, children }: { titel: string; children: React.ReactNode })
   return (
     <div>
       <button type="button" onClick={() => setOpen((v) => !v)} className="btn">
-        {open ? "− " : "+ "}{titel}
+        {open ? <IconMinus /> : <IconPlus />}{titel}
       </button>
       {open && <div className="mt-3">{children}</div>}
     </div>
@@ -97,7 +98,7 @@ export function MediaForm({ niveau, niveauId }: { niveau: Niveau; niveauId: numb
 
         <div className="flex items-center gap-2">
           <button type="button" onClick={probe} disabled={probeBezig} className="btn">
-            {probeBezig ? "ffprobe…" : "⚙ Velden invullen via ffprobe"}
+            <IconSettings /> {probeBezig ? "ffprobe…" : "Velden invullen via ffprobe"}
           </button>
           {probeMelding && <span className="text-xs text-amber">{probeMelding}</span>}
         </div>

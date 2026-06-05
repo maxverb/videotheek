@@ -26,19 +26,17 @@ export default async function OverzichtPage({
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl">Series</h1>
+          <h1 className="text-3xl">Series</h1>
           <p className="text-sm text-muted">
             {series.length} {series.length === 1 ? "serie" : "series"} in je verzameling
+            {filter.zoek ? ` · zoekterm “${filter.zoek}”` : ""}
           </p>
         </div>
       </div>
 
-      {/* Zoek- en filterbalk */}
+      {/* Filterbalk (zoeken zit in de header). Zoekterm blijft bewaard. */}
       <form method="get" className="card flex flex-wrap items-end gap-3 p-4">
-        <div className="min-w-[220px] flex-1">
-          <label className="label" htmlFor="zoek">Zoeken</label>
-          <input id="zoek" name="zoek" defaultValue={sp.zoek ?? ""} placeholder="Titel of synopsis…" className="input" />
-        </div>
+        {filter.zoek && <input type="hidden" name="zoek" value={filter.zoek} />}
         <div>
           <label className="label" htmlFor="genre">Genre</label>
           <select id="genre" name="genre" defaultValue={sp.genre ?? ""} className="input">
@@ -79,26 +77,28 @@ export default async function OverzichtPage({
           ) : (
             <>
               Nog geen series. <Link href="/series/new" className="link">Voeg je eerste serie toe</Link> of draai
-              <code className="mx-1 rounded bg-ink px-1.5 py-0.5 text-cream">npm run db:seed</code>.
+              <code className="mx-1 rounded bg-panel2 px-1.5 py-0.5 text-cream">npm run db:seed</code>.
             </>
           )}
         </div>
       ) : (
-        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {series.map((s) => (
-            <li key={s.id}>
+        <ul className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+          {series.map((s, i) => (
+            <li
+              key={s.id}
+              className="animate-poster-in"
+              style={{ animationDelay: `${Math.min(i, 12) * 30}ms` }}
+            >
               <Link href={`/series/${s.id}`} className="group block">
-                <Poster pad={s.poster_pad} titel={s.titel} className="transition group-hover:opacity-90" />
-                <div className="mt-2">
-                  <h3 className="truncate text-sm font-medium text-cream group-hover:text-amber" title={s.titel}>
-                    {s.titel}
-                  </h3>
-                  <p className="text-xs text-muted">
-                    {jaarBereik(s.jaar_start, s.jaar_eind, s.status)}
-                    {s.zender ? ` · ${s.zender}` : ""}
-                  </p>
-                  {s.genres && <p className="mt-0.5 truncate text-xs text-muted/70">{s.genres}</p>}
-                </div>
+                <Poster
+                  pad={s.poster_pad}
+                  titel={s.titel}
+                  className="transition group-hover:shadow-hover"
+                  overlayTitle={s.titel}
+                  overlaySubtitle={[jaarBereik(s.jaar_start, s.jaar_eind, s.status), s.zender]
+                    .filter(Boolean)
+                    .join(" · ")}
+                />
               </Link>
             </li>
           ))}

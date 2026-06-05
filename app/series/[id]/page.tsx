@@ -111,7 +111,7 @@ export default async function SerieDetail({ params }: { params: Promise<{ id: st
                 <DeleteButton
                   action={verwijderSeizoen}
                   velden={{ id: z.id, serie_id: serieId }}
-                  label="✕"
+                  label=""
                   klein
                   bevestiging={`Seizoen ${z.seizoen_nummer} verwijderen?`}
                 />
@@ -126,18 +126,22 @@ export default async function SerieDetail({ params }: { params: Promise<{ id: st
         <section className="space-y-3">
           <h2 className="text-xl">Vaste cast (serieniveau)</h2>
           <CastGroepen cast={cast} />
-          {cast.map((c) => (
-            <DeleteButtonInline key={c.id} id={c.id} naam={c.persoon_naam} terug={terug} soort="cast" />
-          ))}
+          <div className="flex flex-wrap gap-1">
+            {cast.map((c) => (
+              <DeleteButtonInline key={c.id} id={c.id} naam={c.persoon_naam} terug={terug} soort="cast" />
+            ))}
+          </div>
           <CastForm personen={personen} niveau="serie" niveauId={serieId} />
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl">Crew (serieniveau)</h2>
           <CrewLijst crew={crew} />
-          {crew.map((c) => (
-            <DeleteButtonInline key={c.id} id={c.id} naam={`${c.persoon_naam} (${c.rol})`} terug={terug} soort="crew" />
-          ))}
+          <div className="flex flex-wrap gap-1">
+            {crew.map((c) => (
+              <DeleteButtonInline key={c.id} id={c.id} naam={`${c.persoon_naam} (${c.rol})`} terug={terug} soort="crew" />
+            ))}
+          </div>
           <CrewForm personen={personen} niveau="serie" niveauId={serieId} />
         </section>
       </div>
@@ -146,9 +150,11 @@ export default async function SerieDetail({ params }: { params: Promise<{ id: st
       <section className="space-y-3">
         <h2 className="text-xl">Gekoppelde media (serieniveau)</h2>
         <MediaLijst media={media} />
-        {media.map((m) => (
-          <DeleteButtonInline key={m.id} id={m.id} naam={m.label || m.bestandspad} terug={terug} soort="media" />
-        ))}
+        <div className="flex flex-wrap gap-1">
+          {media.map((m) => (
+            <DeleteButtonInline key={m.id} id={m.id} naam={m.label || m.bestandspad} terug={terug} soort="media" />
+          ))}
+        </div>
         <MediaForm niveau="serie" niveauId={serieId} />
       </section>
 
@@ -156,9 +162,11 @@ export default async function SerieDetail({ params }: { params: Promise<{ id: st
       <section className="space-y-3">
         <h2 className="text-xl">Galerij</h2>
         <Galerij afbeeldingen={afbeeldingen} />
-        {afbeeldingen.map((a) => (
-          <DeleteButtonInline key={a.id} id={a.id} naam={a.bijschrift || a.pad} terug={terug} soort="afbeelding" />
-        ))}
+        <div className="flex flex-wrap gap-1">
+          {afbeeldingen.map((a) => (
+            <DeleteButtonInline key={a.id} id={a.id} naam={a.bijschrift || a.pad} terug={terug} soort="afbeelding" />
+          ))}
+        </div>
         <AfbeeldingForm niveau="serie" niveauId={serieId} />
       </section>
     </div>
@@ -180,8 +188,6 @@ function DeleteButtonInline({
   const action =
     soort === "cast" ? verwijderCast : soort === "crew" ? verwijderCrew : soort === "media" ? verwijderMedia : verwijderAfbeelding;
   return (
-    <div className="text-right">
-      <DeleteButton action={action} velden={{ id, terug }} label={`✕ ${naam}`} klein bevestiging={`"${naam}" verwijderen?`} />
-    </div>
+    <DeleteButton action={action} velden={{ id, terug }} label={naam} variant="subtle" bevestiging={`"${naam}" verwijderen?`} />
   );
 }

@@ -5,6 +5,7 @@ import { maakCast, maakCrew, type FormState } from "@/lib/actions";
 import type { Persoon } from "@/lib/types";
 import { CAST_TIERS, CAST_TIER_LABEL, CREW_ROLLEN } from "@/lib/types";
 import { Veld, Tekst, Keuze, SubmitKnop, FormFout } from "@/components/fields";
+import { IconPlus, IconMinus } from "@/components/icons";
 import { PersoonKiezer } from "./PersoonKiezer";
 
 type Niveau = "serie" | "seizoen" | "aflevering";
@@ -15,7 +16,7 @@ function Blok({ titel, children }: { titel: string; children: React.ReactNode })
   return (
     <div>
       <button type="button" onClick={() => setOpen((v) => !v)} className="btn">
-        {open ? "− " : "+ "}{titel}
+        {open ? <IconMinus /> : <IconPlus />}{titel}
       </button>
       {open && <div className="mt-3">{children}</div>}
     </div>

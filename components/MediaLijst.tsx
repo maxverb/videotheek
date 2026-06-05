@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { MediaAsset } from "@/lib/types";
 import { bestandsgrootte as fmtGrootte, duurSec } from "@/lib/format";
+import { IconPlay, IconCopy, IconFilm } from "@/components/icons";
 
 const TYPE_LABEL: Record<string, string> = {
   iso: "ISO",
@@ -81,12 +82,12 @@ function MediaRij({ m }: { m: MediaAsset }) {
         </div>
         <div className="flex flex-wrap gap-2">
           <button onClick={openInSpeler} disabled={bezig} className="btn">
-            ▶ Open in speler
+            <IconPlay /> Open in speler
           </button>
-          <button onClick={kopieerPad} className="btn">⧉ Kopieer pad</button>
+          <button onClick={kopieerPad} className="btn"><IconCopy /> Kopieer pad</button>
           {AFSPEELBAAR.has(m.type) && (
             <button onClick={() => setSpeelAf((v) => !v)} className="btn">
-              {speelAf ? "Verberg" : "🎞 In app"}
+              <IconFilm /> {speelAf ? "Verberg" : "In app"}
             </button>
           )}
         </div>

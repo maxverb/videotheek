@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPersoon, getCastCreditsVanPersoon, getCrewCreditsVanPersoon } from "@/lib/queries";
 import { verwijderPersoon } from "@/lib/actions";
 import { Poster } from "@/components/Poster";
+import { IconPerson } from "@/components/icons";
 import { DeleteButton } from "@/components/DeleteButton";
 import { CAST_TIER_LABEL } from "@/lib/types";
 import type { PersoonCastCredit, PersoonCrewCredit } from "@/lib/types";
@@ -41,7 +42,7 @@ export default async function PersoonDetail({ params }: { params: Promise<{ id: 
       <Link href="/personen" className="text-sm text-muted hover:text-cream">← Personen</Link>
 
       <div className="grid gap-6 md:grid-cols-[180px_1fr]">
-        <Poster pad={persoon.foto_pad} titel={persoon.naam} aspect="aspect-square" />
+        <Poster pad={persoon.foto_pad} titel={persoon.naam} aspect="aspect-square" icon={<IconPerson size={28} />} />
         <div className="space-y-3">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
